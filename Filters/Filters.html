@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VueJS 过滤器</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../libs/vue.min.js"></script>
+</head>
+<body>
+<div class="container" id="filter">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title">
+                    VueJS 过滤器 {{ title | capitalize(title) }}
+                </h1>
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item" v-for="item in lists">
+                    <h3>{{ item.text | capitalize }}</h3>
+                    <p>The {{undercase(item.text)}} weights {{ item.weight }}.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // 2.0中已经废弃了过滤器
+    Vue.filter('capitalize', function(value) {
+        if (!value) return "";
+        value = value.toString();
+        // toString() 方法可把一个逻辑值转换为字符串，并返回结果。
+        // charAt() 方法可返回指定位置的字符。
+        // slice() 方法可从已有的数组中返回选定的元素。
+        return value.charAt(0).toUpperCase() + value.slice(1);
+    });
+    new Vue({
+        el: "#filter",
+        data: {
+            title: "filter examples",
+            lists: [{
+                text: "Velociraptor",
+                weight: "15 kg"
+            }, {
+                text: "Triceratops",
+                weight: "23 kg"
+            }, {
+                text: "Stegosaurus",
+                weight: "35 kg"
+            }]
+        },
+        methods: {
+            undercase: function (value) {
+                if (!value) return "";
+                value = value.toString();
+                return value.toLowerCase();
+            }
+        }
+    });
+</script>
+</body>
+</html>

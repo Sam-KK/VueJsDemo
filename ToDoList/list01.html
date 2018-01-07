@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创造VueJs列表</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../libs/vue.min.js"></script>
+</head>
+<body>
+<div class="container" id="cardList">
+    <div class="row">
+        <h1>VueJs List</h1>
+
+        <div class="card-list">
+            <div class="input-group">
+                <input type="text" class="form-control" v-model="message" v-on:keypress.enter = "addList"/>
+                <span class="input-group-btn" @click="addList">
+                    <button class="btn btn-default" type="button">ADD</button>
+                </span>
+            </div>
+
+            <ul class="list-group">
+                <li class="list-group-item clearfix" v-for="(list, index) in lists">
+                    {{ list.text }}
+                    <button type="button" class="btn pull-right" @click="del(index)">X</button>
+                </li>
+                <li class="list-group-item" v-if="lists.length === 0">
+                    暂无数据
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: '#cardList',
+        data: {
+            message: "",
+            lists: [{
+                text: "菜鸟教程"
+            }, {
+                text: "百度所搜引擎"
+            }, {
+                text: "掘金"
+            }]
+        },
+        methods: {
+            addList: function () {
+                if (this.message !== "") {
+                    this.lists.push({
+                        text: this.message
+                    });
+                    this.message = "";
+                }
+            },
+            // 删除
+            del: function (index) {
+                this.lists.splice(index, 1);
+            }
+        }
+    });
+</script>
+</body>
+</html>

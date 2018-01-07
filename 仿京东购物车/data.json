@@ -1,0 +1,25 @@
+{
+    "goods": {
+        "foods": [{
+            "name": "狮普【3D抗蓝光】苹果7/6s/8钢化膜手机膜全屏覆盖玻璃贴膜适用于iPhone7plus 7P/8Plus【全屏覆盖】4D抗蓝光 白色",
+            "price": 45.90,
+            "shopNumber": 1,
+            "icon": "https://m.360buyimg.com/n12/jfs/t16564/299/1008181662/465137/ab187ca0/5a48c574N7e277e94.jpg!q70.jpg"
+        }, {
+            "name": "尚劢保护膜3D热弯曲面高清全屏覆盖钢化玻璃膜耐用手机贴膜适用于苹果iPhone7 Plus 象牙白",
+            "price": 69.00,
+            "shopNumber": 1,
+            "icon": "https://m.360buyimg.com/n12/s640x640_jfs/t4966/321/716472616/155536/c958b620/58e70906Nc28e8378.jpg!q70.jpg"
+        }, {
+            "name": "南极人袜子男士精梳棉运动男袜休闲透气商务中筒袜 混色10双装 均码",
+            "price": 29.90,
+            "shopNumber": 1,
+            "icon": "https://m.360buyimg.com/n12/jfs/t12820/309/2225252040/446855/651ae97f/5a3779e6Nae29e438.jpg!q70.jpg"
+        }, {
+            "name": "骆驼(CAMEL) 跑步鞋运动鞋男女情侣款轻质透气慢跑鞋子A71335612白色40",
+            "price": 168.00,
+            "shopNumber": 1,
+            "icon": "https://m.360buyimg.com/n12/s640x640_jfs/t4342/231/2164367562/136222/6d47439d/58ccf2f8N3c87b273.jpg!q70.jpg"
+        }]
+    }
+}

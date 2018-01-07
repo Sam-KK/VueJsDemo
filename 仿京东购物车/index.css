@@ -1,0 +1,214 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -ms-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, tr, th, td {
+  margin: 0;
+  padding: 0;
+}
+body {
+	font-size: 14px;
+	font-family: "微软雅黑";
+}
+.container-fluid {
+	margin-bottom: 60px;
+}
+.header {
+    width: 100%;
+    height: 46px;
+    line-height: 46px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 2px;
+    background-color: #ccc;
+}
+
+.card {
+	margin-top: 20px;
+}
+.card-items {
+	margin-bottom: 15px;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+}
+
+.card-items .head {
+	padding: 6px 15px;
+	border-bottom: 1px solid #ddd;
+}
+.card-items .head a {
+	color: #e93b3d;
+	text-decoration: none;
+}
+.card-items .card-content {
+	padding: 10px;
+	display: flex;
+}
+.card-items .card-content .left {
+	flex: 0 0 30px;
+	width: 30px;
+}
+.radio {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	border: 1px solid #ccc;
+	border-radius: 50%;
+	cursor: pointer;
+}
+.radio[checked] {
+	border-color: red;
+}
+.card-items .card-content .right {
+	display: flex;
+	flex: 1;
+}
+.card-items .card-content .right img {
+	flex: 0 0 76px;
+	width: 76px;
+	height: 76px;
+}
+.card-items .card-content .right .info {
+	flex: 1;
+	margin-left: 14px;
+}
+.card-items .card-content .right .info .name {
+	height: 40px;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-bottom: 6px;
+}
+.card-items .card-content .right .info .price {
+	color: #e93b3d;
+	margin-bottom: 6px;
+}
+.card-items .card-content .right .num-wrap {
+	margin-bottom: 8px;
+}
+.card-items .card-content .right .num-wrap span {
+	display: inline-block;
+	vertical-align: top;
+	width: 30px;
+    height: 30px;
+    color: #999;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+    background-color: #f7f7f7;
+    cursor: pointer;
+}
+.card-items .card-content .right .num-wrap input {
+	display: inline-block;
+	vertical-align: top;
+	width: 45px;
+    height: 30px;
+    font-size: 12px;
+    color: #999;
+    line-height: 30px;
+    text-align: center;
+    border: none;
+    background-color: #f7f7f7;
+    background-image: none;
+    outline: none;
+}
+.card-items .card-content .right .del {
+	color: #e93b3d;
+}
+
+.total-bar {
+	position: fixed;
+	display: flex;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	background-color: #fff;
+}
+.total-bar .total-left {
+	flex: 1;
+	line-height: 50px;
+}
+.total-bar .total-left .radio {
+	vertical-align: middle;
+}
+.total-bar .total-left .total-price {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 15px;
+}
+.total-bar .total-right {
+	flex: 0 0 100px;
+	width: 100px;
+	line-height: 50px;
+	color: #fff;
+	text-align: center;
+	background: #e4393c;
+	cursor: pointer;
+}
+
+
+.panel-dialog {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+.panel-dialog.none {
+	display: none;
+}
+.panel-content {
+	position: absolute;
+	width: 80%;
+	top: 50%;
+	left: 50%;
+	padding: 20px 15px 15px;
+	text-align: center;
+	background-color: #fff;
+	transform: translate(-50%, -50%);
+}
+.panel-content .icon {
+	display: block;
+    width: 50px;
+    height: 50px;
+    margin: 5px auto 10px;
+    background: url("下载.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.panel-content .btns {
+	position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+	margin: 20px -15px -15px;
+}
+.panel-content .btns .buttons {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    color: #333;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    text-decoration: none;
+}
+.panel-content .btns .buttons.btn_1 {
+    color: #e93b3d;
+}

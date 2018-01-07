@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>仿京东购物车</title>
+    <!-- 360 使用Google Chrome Frame -->
+    <meta name="renderer" content="webkit">
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!-- 开启响应式 -->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!-- SEO页面关键词 -->
+    <meta name="keywords" content="keywords">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="../libs/vue.min.js"></script>
+    <script src="../libs/vue-resource.min.js"></script>
+</head>
+<body>
+<div class="container-fluid" id="card">
+    <div class="row">
+        <div class="header">购物车</div>
+
+        <div class="card">
+            <div class="card-items" v-for="(shop, index) in shopListArr">
+                <div class="head clearfix col-lg-12">
+                    <span class="text pull-left">发杰数码专营店</span>
+                    <a href="" class="pull-right">优惠券</a>
+                </div>
+                <div class="card-content clearfix">
+                    <div class="left">
+                        <!--
+                            传入当前的商品
+                        -->
+                        <i class="radio" :checked="shop.checked" @click="selectShop(shop)"></i>
+                    </div>
+                    <div class="right">
+                        <img :src=shop.icon alt="">
+                        <div class="info">
+                            <div class="name">{{ shop.name }}</div>
+                            <div class="prive-wrap clearfix">
+                                <div class="price pull-left">{{ shop.price | moneyFormat }}</div>
+                                <div class="price-total pull-right"> {{ shop.price * shop.shopNumber | moneyFormat }} </div>
+                            </div>
+                            <div class="num-wrap">
+                                <!--
+                                    1、传人当前的商品 shop
+                                    2、false 代表 '-', true 代表：'+'
+                                 -->
+                                <span @click="price(shop, false)">-</span>
+                                <input type="text" v-model="shop.shopNumber">
+                                <span @click="price(shop, true)">+</span>
+                            </div>
+                            <span class="del" @click="trash(shop)">删除</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="total-bar">
+            <div class="total-left">
+                <!--
+                    1、isSelectAll -> true 选中
+                    2、传入是否选中的状态
+                -->
+                <i class="radio" :checked="isSelectAll" @click="checkAll(isSelectAll)"></i>
+                <div class="total-price">
+                    总价：{{ totalMoney | moneyFormat }}
+                </div>
+            </div>
+            <div class="total-right">去结算</div>
+        </div>
+
+        <!-- 弹层 -->
+        <div class="panel-dialog" :class="{none: isHideDialog}">
+            <div class="panel-content">
+                <i class="icon"></i>
+                <div class="panel-title">您确定删除这个商品吗？</div>
+                <p class="btns">
+                    <a href="javascript:;" class="buttons" @click="hideDialog">取消</a>
+                    <a href="javascript:;" class="buttons btn_1" @click="ok">确认</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+Vue.filter('moneyFormat', function (val) {
+    return "￥" + val.toFixed(2);
+});
+    new Vue({
+        el: "#card",
+        data: {
+            // 是否全选
+            isSelectAll: false,
+            totalMoney: 0,
+            // 是否显示弹层
+            isHideDialog: true,
+            // 当前要删除的商品
+            currentDelShop: [],
+            // 购物车数据
+            shopListArr: [
+                {
+                    "name": "狮普【3D抗蓝光】苹果7/6s/8钢化膜手机膜全屏覆盖玻璃贴膜适用于iPhone7plus 7P/8Plus【全屏覆盖】4D抗蓝光 白色",
+                    "price": 45.90,
+                    "shopNumber": 1,
+                    "icon": "https://m.360buyimg.com/n12/jfs/t16564/299/1008181662/465137/ab187ca0/5a48c574N7e277e94.jpg!q70.jpg"
+                }, {
+                    "name": "尚劢保护膜3D热弯曲面高清全屏覆盖钢化玻璃膜耐用手机贴膜适用于苹果iPhone7 Plus 象牙白",
+                    "price": 69.00,
+                    "shopNumber": 1,
+                    "icon": "https://m.360buyimg.com/n12/s640x640_jfs/t4966/321/716472616/155536/c958b620/58e70906Nc28e8378.jpg!q70.jpg"
+                }, {
+                    "name": "南极人袜子男士精梳棉运动男袜休闲透气商务中筒袜 混色10双装 均码",
+                    "price": 29.90,
+                    "shopNumber": 1,
+                    "icon": "https://m.360buyimg.com/n12/jfs/t12820/309/2225252040/446855/651ae97f/5a3779e6Nae29e438.jpg!q70.jpg"
+                }, {
+                    "name": "骆驼(CAMEL) 跑步鞋运动鞋男女情侣款轻质透气慢跑鞋子A71335612白色40",
+                    "price": 168.00,
+                    "shopNumber": 1,
+                    "icon": "https://m.360buyimg.com/n12/s640x640_jfs/t4342/231/2164367562/136222/6d47439d/58ccf2f8N3c87b273.jpg!q70.jpg"
+                }
+            ]
+        },
+        mounted() {
+            // 请求本地数据
+            //this.getLocalData();
+        },
+        created(){
+            // this.getLocalData();
+        },
+        methods: {
+            // 1、 请求本地数据
+            // getLocalData() {
+            //     this.$http.post("data.json").then(response => {
+            //         const mes = response.goods.foods;
+            //         console.log(mes);
+            //         if (mes) {
+            //             this.shopListArr = mes.goods.foods;
+            //             console.log(this.shopListArr);
+            //         }
+            //     }, response => {
+            //         console.log(response);
+            //     });
+            // },
+            // 2、单个商品的加减
+            price: function(shop, flag) {
+                if (flag) { // 加
+                    shop.shopNumber += 1;
+                } else { // 减
+                    if (shop.shopNumber <= 1) {
+                        shop.shopNumber = 1;
+                        return;
+                    }
+                    shop.shopNumber -= 1;
+                }
+                // 计算总价格
+                this.getAllPrice();
+            },
+            // 3、全选所有商品
+            checkAll: function (flag) {
+                // 3.1 全选
+                this.isSelectAll = !flag;
+
+                // 3.2 对应的商品也应该选中 遍历所有的商品 添加 checked 属性
+                this.shopListArr.forEach((shop, index) => {
+                    // 判断当前是否有 checked 属性
+                    if (typeof shop.checked === 'undefined') {
+                        this.$set(shop, 'checked', !flag)
+                    } else {
+                        shop.checked = !flag;
+                    }
+                })
+                // 3.3 计算总价格
+                this.getAllPrice();
+            },
+            // 4、计算总价格
+            getAllPrice: function() {
+                let num = 0;
+                this.shopListArr.forEach((shop, index) => {
+                    // 判断商品是否选中
+                    if (shop.checked) {
+                        num += shop.price * shop.shopNumber;
+                    }
+                });
+                this.totalMoney = num;
+            },
+            // 5、单个商品选中 和 取消
+            selectShop: function(shop) {
+                console.log('1');
+                // 5.1、判断是否有checked属性
+                if (typeof shop.checked === 'undefined') {
+                    this.$set(shop, 'checked', true)
+                } else {
+                    shop.checked = !shop.checked;
+                }
+                // 5.2、计算总价格
+                this.getAllPrice();
+                // 5.3 判断是否全选
+                this.hasCheckAll();
+            },
+            // 判断是否全选
+            hasCheckAll: function() {
+                let flag = true;
+                this.shopListArr.forEach((shop, index) => {
+                    if (!shop.checked) { // false
+                        flag = false;
+                    }
+                });
+                this.isSelectAll = flag;
+            },
+            trash: function (shop) {
+                console.log('1');
+                this.isHideDialog = !this.isHideDialog;
+                this.currentDelShop = shop;
+            },
+
+            // 取消弹层
+            hideDialog: function () {
+                this.isHideDialog = true;
+            },
+
+            // 确定删除当前商品
+            ok: function () {
+                this.isHideDialog = true;
+                // 获取当前商品的索引
+                const index = this.shopListArr.indexOf(this.currentDelShop);
+                this.shopListArr.splice(index, 1);
+                // 计算总价格
+                this.getAllPrice();
+            }
+        }
+    });
+</script>
+</body>
+</html>
